@@ -10,3 +10,9 @@ __pycache__/
 node_modules/
 pos_bahrain/public/node_modules
 yarn.lock
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/pos_bahrain.iml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/vcs.xml
+/.idea/.gitignore

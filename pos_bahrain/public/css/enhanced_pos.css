@@ -1,0 +1,17 @@
+.pos-toolbar {
+    padding: 15px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #d1d8dd;
+}
+
+.pos-content {
+    padding: 15px;
+}
+
+.pos-items {
+    height: 150px;
+}
+
+.pos-items__empty {
+    height: 100%;
+}
