@@ -4,7 +4,7 @@
     border-bottom: 1px solid #d1d8dd;
 }
 
-.pos-content {
+.pos-content, .pos-pad {
     padding: 15px;
 }
 
@@ -14,4 +14,62 @@
 
 .pos-items__empty {
     height: 100%;
+}
+
+.pos-pay {
+    height: 120px;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    border: 1px solid #d1d8dd;
+    border-radius: 3px;
+}
+
+.pos-number-pad {
+    display: table;
+    border-collapse: collapse;
+}
+
+.pos-num-row {
+    display: table-row;
+}
+
+.pos-num-col {
+    display: table-cell;
+    border: 1px solid #d1d8dd;
+}
+
+.pos-num-col > div {
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+}
+
+.pos-btn {
+    border: 1px solid #d1d8dd;
+    margin-bottom: 9px;
+}
+
+.pos-btn__misc {
+    border-bottom: 1px solid #d1d8dd;
+}
+
+.pos-btn__misc.last {
+    border: none;
+}
+
+.pos-day-sales {
+    border: 1px solid #d1d8dd;
+    border-radius: 3px;
+    padding-left: 15px;
+    height: 40px;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.pos-close-shift {
+    border: 1px solid #d1d8dd;
+    height: 50px;
+    align-items: center;
 }

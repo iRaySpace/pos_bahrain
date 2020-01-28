@@ -11,9 +11,9 @@
       <button class="btn btn-default">Gift Card</button>
       <button class="btn btn-default">Loyalty Point</button>
     </div>
-  </div>
+  </div> <!-- end of .pos-toolbar -->
   <div class="pos-content clearfix">
-    <div class="col-sm-8">
+    <div class="col-sm-7">
       <div class="list-item-table">
         <div class="list-item list-item--head">
           <div class="list-item__content text-muted">Item Name</div>
@@ -28,9 +28,90 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="col-sm-4">
-      test
+    </div> <!-- end of .col-sm-7 -->
+    <div class="col-sm-2">
+      <div class="btn btn-default flex pos-btn">Delete Item</div>
+      <div class="btn btn-default flex pos-btn">+ Key</div>
+      <div class="btn btn-default flex pos-btn">- Key</div>
+      <div class="btn btn-default flex pos-btn">Hold Invoice</div>
+      <div class="btn btn-default flex pos-btn">Pick Held Invoice</div>
+    </div> <!-- end of .col-sm-2 -->
+    <div class="col-sm-3">
+      <div class="pos-number-pad">
+        <div class="pos-num-row">
+          <div class="pos-num-col">
+            <div>1</div>
+          </div>
+          <div class="pos-num-col">
+            <div>2</div>
+          </div>
+          <div class="pos-num-col">
+            <div>3</div>
+          </div>
+        </div> <!-- end of .pos-num-row -->
+        <div class="pos-num-row">
+          <div class="pos-num-col">
+            <div>4</div>
+          </div>
+          <div class="pos-num-col">
+            <div>5</div>
+          </div>
+          <div class="pos-num-col">
+            <div>6</div>
+          </div>
+        </div> <!-- end of .pos-num-row -->
+        <div class="pos-num-row">
+          <div class="pos-num-col">
+            <div>7</div>
+          </div>
+          <div class="pos-num-col">
+            <div>8</div>
+          </div>
+          <div class="pos-num-col">
+            <div>9</div>
+          </div>
+        </div> <!-- end of .pos-num-row -->
+        <div class="pos-num-row">
+          <div class="pos-num-col">
+            <div>Del</div>
+          </div>
+          <div class="pos-num-col">
+            <div>0</div>
+          </div>
+          <div class="pos-num-col">
+            <div>.</div>
+          </div>
+        </div> <!-- end of .pos-num-row -->
+      </div>
+    </div> <!-- end of .col-sm-3 -->
+  </div> <!-- end of .pos-content -->
+  <div class="pos-pad clearfix">
+    <div class="col-sm-2">
+      <div class="btn btn-default flex pos-pay">
+        <div>Pay (F#)</div>
+      </div>
+    </div> <!-- end of .col-sm-2 -->
+    <div class="col-sm-5">
+      <div class="list-item-table">
+        <div class="list-item">Subtotal</div>
+        <div class="list-item">VAT</div>
+        <div class="list-item">Total</div>
+      </div>
+    </div> <!-- end of .col-sm-5 -->
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="list-item-table">
+            <div class="list-item pos-btn__misc">Calculator (F#)</div>
+            <div class="list-item pos-btn__misc">Price Check (F#)</div>
+            <div class="list-item pos-btn__misc last">Print Quote (F#)</div>
+          </div>
+        </div> <!-- end of .col-sm-7 -->
+        <div class="col-sm-5">
+          <div class="flex pos-day-sales">Day Sales</div>
+          <div class="btn btn-default flex pos-close-shift">Close Shift (F#)</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
