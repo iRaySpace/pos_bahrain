@@ -41,5 +41,41 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		this.wrapper
 			.find('#app')
 			.append(frappe.templates['enhanced_pos']);
+
+		const customer_field = frappe.ui.form.make_control({
+			df: {
+				fieldtype: 'Link',
+				label: 'Customer',
+				fieldname: 'customer',
+				options: 'Customer',
+				reqd: 1,
+				get_query: function() {
+					return { query: 'erpnext.controllers.queries.customer_query' };
+				}
+			},
+			parent: this.wrapper.find('.customer-field'),
+			render_input: true
+		});
+
+		const item_field = frappe.ui.form.make_control({
+			df: {
+				fieldtype: 'Link',
+				label: 'Item',
+				fieldname: 'item',
+				options: 'Item'
+			},
+			parent: this.wrapper.find('.item-field'),
+			render_input: true
+		});
+
+		this.init_menu_items();
+	}
+	init_menu_items() {
+		this.page.add_menu_item(__('Hold Invoice'), function() {
+			console.log('hold');
+		});
+		this.page.add_menu_item(__('Pick Held Invoice'), function() {
+			console.log('held');
+		});
 	}
 };

@@ -1,8 +1,10 @@
 <section class="pos">
   <div class="pos-toolbar clearfix">
-    <div class="col-sm-12 text-center">
-      <button class="btn btn-default">Customer (F#)</button>
-      <button class="btn btn-default">Search (F#)</button>
+    <div class="col-sm-4">
+      <div class="customer-field"></div>
+      <div class="item-field"></div>
+    </div>
+    <div class="col-sm-8 text-center pos-toolbar-buttons flex">
       <button class="btn btn-default">Change Qty (F#)</button>
       <button class="btn btn-default">New Cart (F#)</button>
       <button class="btn btn-default">Change Price (F#)</button>
@@ -13,7 +15,7 @@
     </div>
   </div> <!-- end of .pos-toolbar -->
   <div class="pos-content clearfix">
-    <div class="col-sm-7">
+    <div class="col-sm-8">
       <div class="list-item-table">
         <div class="list-item list-item--head">
           <div class="list-item__content text-muted">Item Name</div>
@@ -31,12 +33,11 @@
     </div> <!-- end of .col-sm-7 -->
     <div class="col-sm-2">
       <div class="btn btn-default flex pos-btn">Delete Item</div>
-      <div class="btn btn-default flex pos-btn">+ Key</div>
-      <div class="btn btn-default flex pos-btn">- Key</div>
-      <div class="btn btn-default flex pos-btn">Hold Invoice</div>
-      <div class="btn btn-default flex pos-btn">Pick Held Invoice</div>
+      <div class="btn btn-default flex pos-btn">+ Qty (Key)</div>
+      <div class="btn btn-default flex pos-btn">- Qty (Key)</div>
+      <div class="btn btn-default flex pos-btn">Apply Item Discount</div>
     </div> <!-- end of .col-sm-2 -->
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="pos-number-pad">
         <div class="pos-num-row">
           <div class="pos-num-col">
@@ -94,7 +95,8 @@
     <div class="col-sm-5">
       <div class="list-item-table">
         <div class="list-item">Subtotal</div>
-        <div class="list-item">VAT</div>
+        <div class="list-item">Discount</div>
+        <div class="list-item">Tax</div>
         <div class="list-item">Total</div>
       </div>
     </div> <!-- end of .col-sm-5 -->
