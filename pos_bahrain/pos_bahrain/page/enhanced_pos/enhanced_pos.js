@@ -69,7 +69,8 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		});
 
 		this.init_menu_items();
-		this.init_secondary_actions();
+		this.init_action_items();
+		// this.init_secondary_actions();
 	}
 	init_menu_items() {
 		this.page.add_menu_item(__('Hold Invoice'), function() {
@@ -79,9 +80,17 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			console.log('held');
 		});
 	}
-	init_secondary_actions() {
-		this.page.set_secondary_action('Void Invoice', function() {
-			console.log('void invoice');
+	init_action_items() {
+		this.page.add_action_item(__('Void Invoice'), function() {
+			console.log('void');
+		});
+		this.page.add_action_item(__('Open Cash Drawer'), function() {
+			console.log('void');
 		});
 	}
+	// init_secondary_actions() {
+	// 	this.page.set_secondary_action('Void Invoice', function() {
+	// 		console.log('void invoice');
+	// 	});
+	// }
 };
