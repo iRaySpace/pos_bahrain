@@ -69,6 +69,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		});
 
 		this.init_menu_items();
+		this.init_secondary_actions();
 	}
 	init_menu_items() {
 		this.page.add_menu_item(__('Hold Invoice'), function() {
@@ -76,6 +77,11 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		});
 		this.page.add_menu_item(__('Pick Held Invoice'), function() {
 			console.log('held');
+		});
+	}
+	init_secondary_actions() {
+		this.page.set_secondary_action('Void Invoice', function() {
+			console.log('void invoice');
 		});
 	}
 };

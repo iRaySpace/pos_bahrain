@@ -19,6 +19,14 @@
     padding: 15px;
 }
 
+.pos-list__item-name {
+    flex: 2;
+}
+
+.pos-list__qty {
+    flex: 0.5;
+}
+
 .pos-items {
     height: 150px;
 }
