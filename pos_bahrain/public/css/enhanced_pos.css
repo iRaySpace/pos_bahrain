@@ -12,6 +12,7 @@
 
 .pos-toolbar-buttons > .btn {
     height: 100%;
+    width: 130px;
     border: 1px solid #d1d8dd;
 }
 

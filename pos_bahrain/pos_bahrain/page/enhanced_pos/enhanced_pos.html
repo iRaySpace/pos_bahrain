@@ -5,13 +5,11 @@
       <div class="item-field"></div>
     </div>
     <div class="col-sm-8 text-center pos-toolbar-buttons flex">
-      <button class="btn btn-default">Change Qty (F#)</button>
-      <button class="btn btn-default">New Cart (F#)</button>
-      <button class="btn btn-default">Change Price (F#)</button>
-      <button class="btn btn-default">Return</button>
       <button class="btn btn-default">Refund</button>
+      <button class="btn btn-default">Return</button>
       <button class="btn btn-default">Gift Card</button>
       <button class="btn btn-default">Loyalty Point</button>
+      <button class="btn btn-default">New Cart (F#)</button>
     </div>
   </div> <!-- end of .pos-toolbar -->
   <div class="pos-content clearfix">
@@ -32,6 +30,8 @@
       </div>
     </div> <!-- end of .col-sm-7 -->
     <div class="col-sm-2">
+      <div class="btn btn-default flex pos-btn">Change Qty (F#)</div>
+      <div class="btn btn-default flex pos-btn">Change Price (F#)</div>
       <div class="btn btn-default flex pos-btn">Delete Item</div>
       <div class="btn btn-default flex pos-btn">+ Qty (Key)</div>
       <div class="btn btn-default flex pos-btn">- Qty (Key)</div>
@@ -88,9 +88,8 @@
   </div> <!-- end of .pos-content -->
   <div class="pos-pad clearfix">
     <div class="col-sm-2">
-      <div class="btn btn-default flex pos-pay">
-        <div>Pay (F#)</div>
-      </div>
+      <div class="flex pos-day-sales">Day Sales</div>
+      <div class="btn btn-default flex pos-close-shift">Close Shift (F#)</div>
     </div> <!-- end of .col-sm-2 -->
     <div class="col-sm-5">
       <div class="list-item-table">
@@ -110,9 +109,10 @@
           </div>
         </div> <!-- end of .col-sm-7 -->
         <div class="col-sm-5">
-          <div class="flex pos-day-sales">Day Sales</div>
-          <div class="btn btn-default flex pos-close-shift">Close Shift (F#)</div>
-        </div>
+          <div class="btn btn-default flex pos-pay">
+            <div>Pay (F#)</div>
+          </div>
+        </div> <!-- end of .col-sm-5 -->
       </div>
     </div>
   </div>
