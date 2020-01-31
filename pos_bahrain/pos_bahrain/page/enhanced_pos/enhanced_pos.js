@@ -57,12 +57,27 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			render_input: true
 		});
 
+		const item_detail_field = frappe.ui.form.make_control({
+			df: {
+				fieldtype: 'Small Text',
+				label: 'Item Details',
+				fieldname: 'item_detail',
+				read_only: true
+			},
+			parent: this.wrapper.find('.item-detail-field'),
+			render_input: true
+		});
+
 		const item_field = frappe.ui.form.make_control({
 			df: {
 				fieldtype: 'Link',
 				label: 'Item',
 				fieldname: 'item',
-				options: 'Item'
+				options: 'Item',
+				onchange: function() {
+					// const item = item_field.get_value();
+					item_detail_field.set_value('Actual Qty: xxx\nPrice: xxx.xx');
+				}
 			},
 			parent: this.wrapper.find('.item-field'),
 			render_input: true
