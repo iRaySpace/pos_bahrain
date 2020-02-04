@@ -1,3 +1,5 @@
+{% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_data.js' %}
+
 frappe.provide('pos_bahrain.enhanced_pos');
 
 /**
@@ -42,6 +44,9 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			.find('#app')
 			.append(frappe.templates['enhanced_pos']);
 
+		this.$pos_items__empty = this.wrapper.find('.pos-items__empty');
+		this.$pos_items = this.wrapper.find('.pos-items');
+
 		const customer_field = frappe.ui.form.make_control({
 			df: {
 				fieldtype: 'Link',
@@ -70,13 +75,13 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 
 		const item_field = frappe.ui.form.make_control({
 			df: {
-				fieldtype: 'Link',
+				fieldtype: 'Data',
 				label: 'Item',
 				fieldname: 'item',
-				options: 'Item',
-				onchange: function() {
-					// const item = item_field.get_value();
-					item_detail_field.set_value('Actual Qty: xxx\nPrice: xxx.xx');
+				onchange: async () => {
+					const item = await item_by_barcode_number(item_field.get_value());
+					item_detail_field.set_value('Actual Qty: 50\nPrice: 10.00');
+					this._add_item(item);
 				}
 			},
 			parent: this.wrapper.find('.item-field'),
@@ -102,6 +107,24 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		this.page.add_action_item(__('Open Cash Drawer'), function() {
 			console.log('void');
 		});
+	}
+	_add_item(item) {
+		this.$pos_items__empty.hide();
+		
+		const interpolation = {
+			'{item-name}': item.item_code,
+			'{qty}': Number.parseFloat(1.00).toFixed(2),
+			'{item-price}': Number.parseFloat(10.00).toFixed(2),
+			'{vat}': Number.parseFloat(0.00).toFixed(2),
+			'{total}': Number.parseFloat(10.00).toFixed(2)
+		};
+
+		let template = frappe.templates.enhanced_pos_item;
+		Object.keys(interpolation).forEach(function(key) {
+			template = template.replace(key, interpolation[key]);
+		});
+
+		$(template).appendTo(this.$pos_items);
 	}
 	// init_secondary_actions() {
 	// 	this.page.set_secondary_action('Void Invoice', function() {
