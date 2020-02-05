@@ -143,7 +143,13 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	    $('.pos-item').click(function() {
 	        // this refers to the selected item
 	        const idx = $(this).data('idx');
-	        me.selected_cart_item = me.cart_items[idx];
+	        if (!me.selected_cart_item) {
+	            me.selected_cart_item = me.cart_items[idx];
+	        } else {
+	            if (me.selected_cart_item.idx === idx) {
+	                me.selected_cart_item = null;
+	            }
+	        }
 	        me._render_items();
 	    });
 	}
