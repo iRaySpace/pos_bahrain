@@ -35,3 +35,13 @@ function prompt_change_price() {
         );
     });
 }
+
+function confirm_delete_item() {
+    return new Promise(function(resolve, reject) {
+        frappe.confirm(
+            'Are you sure you want to delete this item?',
+            () => resolve(true),
+            () => resolve(false)
+        );
+    });
+}

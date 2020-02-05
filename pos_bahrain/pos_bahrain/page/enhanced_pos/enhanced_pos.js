@@ -132,6 +132,17 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	        me._set_rate(me.selected_cart_item, data.rate);
 	        me._render_items();
 	    });
+	    $('.pos-btn.pos-delete-item').click(async function() {
+	        if (!me.selected_cart_item) {
+	            return;
+	        }
+            const choice = await confirm_delete_item();
+            if (choice) {
+                me._delete_item(me.selected_cart_item.idx);
+                me.selected_cart_item = null;
+                me._render_items();
+            }
+	    });
         $('.pos-btn.pos-plus').click(function() {
             if (!me.selected_cart_item) {
                 return;
@@ -162,6 +173,10 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	_set_rate(item, rate) {
 	    item.rate = rate;
 	    item.total = rate * item.qty;
+	}
+	_delete_item(idx) {
+	    const filtered_items = this.cart_items.filter((cart_item) => cart_item.idx !== idx);
+	    this.cart_items = filtered_items;
 	}
 	_set_item_events() {
 	    const me = this; // refers to the POS
