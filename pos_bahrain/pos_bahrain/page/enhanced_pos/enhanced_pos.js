@@ -94,6 +94,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 
 		this.init_menu_items();
 		this.init_action_items();
+		this.init_buttons_events();
 		// this.init_secondary_actions();
 	}
 	init_menu_items() {
@@ -111,6 +112,31 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		this.page.add_action_item(__('Open Cash Drawer'), function() {
 			console.log('void');
 		});
+	}
+	init_buttons_events() {
+	    const me = this;
+        $('.pos-btn.pos-plus').click(function() {
+            if (!me.selected_cart_item) {
+                return;
+            }
+            me._increment_qty(me.selected_cart_item);
+            me._render_items();
+        });
+        $('.pos-btn.pos-minus').click(function() {
+            if (!me.selected_cart_item) {
+                return;
+            }
+            me._decrement_qty(me.selected_cart_item);
+            me._render_items();
+        });
+	}
+	_increment_qty(item) {
+	    item.qty = item.qty + 1;
+	    item.total = item.rate * item.qty;
+	}
+	_decrement_qty(item) {
+	    item.qty = item.qty - 1;
+	    item.total = item.rate * item.qty;
 	}
 	_set_item_events() {
 	    const me = this; // refers to the POS
