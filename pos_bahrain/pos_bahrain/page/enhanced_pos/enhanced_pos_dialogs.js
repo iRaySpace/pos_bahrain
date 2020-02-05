@@ -16,3 +16,22 @@ function prompt_change_qty() {
         );
     });
 }
+
+function prompt_change_price() {
+    return new Promise(function(resolve, reject) {
+        const fields = [
+            {
+                'fieldname': 'rate',
+                'fieldtype': 'Currency',
+                'label': 'Rate',
+                'reqd': 1
+            }
+        ];
+        frappe.prompt(
+            fields,
+            (values) => resolve(values),
+            'Change Price',
+            'Submit'
+        );
+    });
+}
