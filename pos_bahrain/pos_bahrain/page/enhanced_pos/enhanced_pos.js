@@ -35,6 +35,10 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			.append('<div id="app"></div>');
 		this.page = wrapper.page;
 
+        // Cart attributes
+        this.cart_items = [];
+        this.selected_cart_item = null;
+
 		frappe.require(['assets/css/enhanced_pos.min.css'], () => {
 			this.init();
 		});
@@ -108,24 +112,53 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			console.log('void');
 		});
 	}
-	_add_item(item) {
-		this.$pos_items__empty.hide();
-		
-		const interpolation = {
-			'{item-name}': item.item_code,
-			'{qty}': Number.parseFloat(1.00).toFixed(2),
-			'{item-price}': Number.parseFloat(10.00).toFixed(2),
-			'{vat}': Number.parseFloat(0.00).toFixed(2),
-			'{total}': Number.parseFloat(10.00).toFixed(2)
-		};
-
-		let template = frappe.templates.enhanced_pos_item;
-		Object.keys(interpolation).forEach(function(key) {
-			template = template.replace(key, interpolation[key]);
-		});
-
-		$(template).appendTo(this.$pos_items);
+	_set_item_events() {
+	    const me = this; // refers to the POS
+	    $('.pos-item').click(function() {
+	        // this refers to the selected item
+	        const idx = $(this).data('idx');
+	        me.selected_cart_item = me.cart_items[idx];
+	        me._render_items();
+	    });
 	}
+	_add_item(item) {
+	    if (!item) {
+	        return;
+	    }
+		this.$pos_items__empty.hide();
+        this.cart_items.push({
+            idx: this.cart_items.length,
+            item_code: item.item_code,
+            qty: 1,
+            rate: 10.00,
+            vat: 0.00,
+            total: 10.00
+        });
+        this._render_items();
+	}
+	_render_items() {
+	    this.$pos_items.empty();
+	    this.cart_items.forEach((cart_item) => {
+	        const interpolation = {
+	            '{idx}': cart_item.idx,
+                '{item-name}': cart_item.item_code,
+                '{qty}': Number.parseFloat(cart_item.qty).toFixed(2),
+                '{item-price}': Number.parseFloat(cart_item.rate).toFixed(2),
+                '{vat}': Number.parseFloat(cart_item.vat).toFixed(2),
+                '{total}': Number.parseFloat(cart_item.total).toFixed(2)
+            };
+            let template = frappe.templates.enhanced_pos_item;
+            Object.keys(interpolation).forEach(function(key) {
+                template = template.replace(key, interpolation[key]);
+            });
+            const template_item = $(template).appendTo(this.$pos_items);
+            if (this.selected_cart_item && this.selected_cart_item.idx === cart_item.idx) {
+                template_item.addClass('current-item');
+            }
+	    });
+	    this._set_item_events();
+	}
+
 	// init_secondary_actions() {
 	// 	this.page.set_secondary_action('Void Invoice', function() {
 	// 		console.log('void invoice');

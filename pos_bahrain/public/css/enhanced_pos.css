@@ -36,6 +36,10 @@
     height: 100%;
 }
 
+.pos-item.current-item {
+    background-color: #fffdf4;
+}
+
 .pos-pay {
     height: 120px;
     justify-content: center;
