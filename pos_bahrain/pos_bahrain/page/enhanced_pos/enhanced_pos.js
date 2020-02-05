@@ -1,4 +1,5 @@
 {% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_data.js' %}
+{% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_dialogs.js' %}
 
 frappe.provide('pos_bahrain.enhanced_pos');
 
@@ -115,6 +116,14 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	}
 	init_buttons_events() {
 	    const me = this;
+	    $('.pos-btn.pos-change-qty').click(async function() {
+	        if (!me.selected_cart_item) {
+	            return;
+	        }
+	        const data = await prompt_change_qty();
+	        me._set_qty(me.selected_cart_item, data.qty);
+	        me._render_items();
+	    });
         $('.pos-btn.pos-plus').click(function() {
             if (!me.selected_cart_item) {
                 return;
@@ -137,6 +146,10 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	_decrement_qty(item) {
 	    item.qty = item.qty - 1;
 	    item.total = item.rate * item.qty;
+	}
+	_set_qty(item, qty) {
+	    item.qty = qty;
+	    item.total = item.rate * qty;
 	}
 	_set_item_events() {
 	    const me = this; // refers to the POS
