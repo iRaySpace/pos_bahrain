@@ -45,3 +45,29 @@ function confirm_delete_item() {
         );
     });
 }
+
+function payment_dialog(mops) {
+    const payment_fields = mops.map(function(mop) {
+        return {
+            fieldname: mop.mode_of_payment,
+            fieldtype: 'Currency',
+            label: mop.mode_of_payment,
+            reqd: 1,
+        };
+    });
+    return new Promise(function(resolve, reject) {
+        const fields = [
+            ...payment_fields
+        ];
+        const dialog = new frappe.ui.Dialog({
+            title: __('Payment'),
+            width: 800,
+            fields,
+        });
+        dialog.set_primary_action(__('Submit'), function() {
+            resolve(dialog.get_values());
+            dialog.hide();
+        });
+        dialog.show();
+    });
+}

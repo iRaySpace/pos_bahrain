@@ -176,6 +176,10 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	on(target, fn) {
 	    $(target).click(fn);
 	}
+	async prompt_payment() {
+	    const values = await payment_dialog(this.frm.doc.payments);
+	    return values;
+	}
 	async _get_pos_profile() {
 	    if (this.pos_profile) {
 	        return;
