@@ -42,6 +42,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 
 		frappe.require(['assets/css/enhanced_pos.min.css'], () => {
 			this.init();
+			this.init_sales_invoice_frm();
 		});
 	}
 	init() {
@@ -157,6 +158,15 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
             me._decrement_qty(me.selected_cart_item);
             me._render_items();
         });
+	}
+	async init_sales_invoice_frm() {
+	    await frappe.model.with_doctype('Sales Invoice');
+	    const name = frappe.model.make_new_doc_and_get_name('Sales Invoice', true);
+	    const frm = new _f.Frm('Sales Invoice', $('<div>'), false);
+	    frm.refresh(name);
+	    frm.doc.items = [];
+	    frm.doc.is_pos = 1;
+	    this.frm = frm;
 	}
 	_increment_qty(item) {
 	    item.qty = item.qty + 1;
