@@ -44,9 +44,11 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		});
 	}
 	init_state() {
-	    this.customer = null;
 	    this.cart_items = [];
 	    this.selected_cart_item = null;
+	    this.customer_field && this.customer_field.set_value('');
+	    this.item_field && this.item_field.set_value('');
+	    this.item_detail_field && this.item_detail_field.set_value('');
 	}
 	init() {
 		this.wrapper
@@ -63,7 +65,6 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 				fieldname: 'customer',
 				options: 'Customer',
 				reqd: 1,
-				onchange: () => this.customer = customer_field.get_value(),
 				get_query: function() {
 					return { query: 'erpnext.controllers.queries.customer_query' };
 				},
@@ -71,6 +72,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			parent: this.wrapper.find('.customer-field'),
 			render_input: true
 		});
+        this.customer_field = customer_field;
 
 		const item_detail_field = frappe.ui.form.make_control({
 			df: {
@@ -82,6 +84,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			parent: this.wrapper.find('.item-detail-field'),
 			render_input: true
 		});
+        this.item_detail_field = item_detail_field;
 
 		const item_field = frappe.ui.form.make_control({
 			df: {
@@ -97,6 +100,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 			parent: this.wrapper.find('.item-field'),
 			render_input: true
 		});
+        this.item_field = item_field;
 
 		this.init_menu_items();
 		this.init_action_items();

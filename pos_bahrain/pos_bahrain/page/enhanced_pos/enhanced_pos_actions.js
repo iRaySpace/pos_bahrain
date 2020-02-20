@@ -14,7 +14,7 @@ function init_pos_actions(pos) {
 
 async function _map_pos_to_frm(pos, payments) {
     const frm = pos.frm;
-    frm.set_value('customer', pos.customer);
+    frm.set_value('customer', pos.customer_field.get_value());
 
     // Set the cart items
     for (const item of pos.cart_items) {
