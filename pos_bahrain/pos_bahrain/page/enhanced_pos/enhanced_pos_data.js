@@ -5,3 +5,11 @@ async function item_by_barcode_number(barcode_number) {
     });
     return item;
 }
+
+async function get_pos_profile(company) {
+    const { message: pos_profile } = await frappe.call({
+        method: 'erpnext.stock.get_item_details.get_pos_profile',
+        args: { company },
+    });
+    return pos_profile;
+}

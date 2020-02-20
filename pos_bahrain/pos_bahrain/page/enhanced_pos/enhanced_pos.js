@@ -1,5 +1,6 @@
 {% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_data.js' %}
 {% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_dialogs.js' %}
+{% include 'pos_bahrain/pos_bahrain/page/enhanced_pos/enhanced_pos_actions.js' %}
 
 frappe.provide('pos_bahrain.enhanced_pos');
 
@@ -37,12 +38,14 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 		this.page = wrapper.page;
 
         // Cart attributes
+        this.customer = null;
         this.cart_items = [];
         this.selected_cart_item = null;
 
 		frappe.require(['assets/css/enhanced_pos.min.css'], () => {
 			this.init();
 			this.init_sales_invoice_frm();
+			init_pos_actions(this);
 		});
 	}
 	init() {
@@ -60,9 +63,10 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 				fieldname: 'customer',
 				options: 'Customer',
 				reqd: 1,
+				onchange: () => this.customer = customer_field.get_value(),
 				get_query: function() {
 					return { query: 'erpnext.controllers.queries.customer_query' };
-				}
+				},
 			},
 			parent: this.wrapper.find('.customer-field'),
 			render_input: true
@@ -164,9 +168,20 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	    const name = frappe.model.make_new_doc_and_get_name('Sales Invoice', true);
 	    const frm = new _f.Frm('Sales Invoice', $('<div>'), false);
 	    frm.refresh(name);
-	    frm.doc.items = [];
-	    frm.doc.is_pos = 1;
-	    this.frm = frm;
+	    frm.set_value('items', []);
+	    frm.set_value('is_pos', 1);
+        this.frm = frm;
+        this._get_pos_profile();
+	}
+	on(target, fn) {
+	    $(target).click(fn);
+	}
+	async _get_pos_profile() {
+	    if (this.pos_profile) {
+	        return;
+	    }
+	    this.pos_profile = await get_pos_profile(this.frm.doc.company);
+	    this.frm.set_value('pos_profile', this.pos_profile.name);
 	}
 	_increment_qty(item) {
 	    item.qty = item.qty + 1;
