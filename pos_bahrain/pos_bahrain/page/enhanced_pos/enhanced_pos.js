@@ -132,6 +132,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	        const data = await prompt_change_qty();
 	        me._set_qty(me.selected_cart_item, data.qty);
 	        me._render_items();
+	        me._render_totals();
 	    });
 	    $('.pos-btn.pos-change-price').click(async function() {
 	        if (!me.selected_cart_item) {
@@ -140,6 +141,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	        const data = await prompt_change_price();
 	        me._set_rate(me.selected_cart_item, data.rate);
 	        me._render_items();
+	        me._render_totals();
 	    });
 	    $('.pos-btn.pos-delete-item').click(async function() {
 	        if (!me.selected_cart_item) {
@@ -150,6 +152,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
                 me._delete_item(me.selected_cart_item.idx);
                 me.selected_cart_item = null;
                 me._render_items();
+                me._render_totals();
             }
 	    });
         $('.pos-btn.pos-plus').click(function() {
@@ -158,6 +161,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
             }
             me._increment_qty(me.selected_cart_item);
             me._render_items();
+            me._render_totals();
         });
         $('.pos-btn.pos-minus').click(function() {
             if (!me.selected_cart_item) {
@@ -165,6 +169,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
             }
             me._decrement_qty(me.selected_cart_item);
             me._render_items();
+            me._render_totals();
         });
 	}
 	async init_sales_invoice_frm() {
@@ -186,6 +191,17 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	async prompt_payment() {
 	    const values = await payment_dialog(this.frm.doc.payments);
 	    return values;
+	}
+	get_totals() {
+	    let subtotal = 0.00;
+	    let discount = 0.00;
+	    let tax = 0.00;
+	    this.cart_items.forEach(function(cart_item) {
+	        subtotal = subtotal + cart_item.total;
+	        tax = tax + cart_item.vat;
+	    });
+	    let total = subtotal + discount + tax;
+	    return { subtotal, discount, tax, total };
 	}
 	async _get_pos_profile() {
 	    if (this.pos_profile) {
@@ -243,6 +259,7 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
             total: 10.00
         });
         this._render_items();
+        this._render_totals();
 	}
 	_render_items() {
 	    this.$pos_items.empty();
@@ -266,7 +283,13 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	    });
 	    this._set_item_events();
 	}
-
+    _render_totals() {
+        const totals = this.get_totals();
+        $('.subtotal-value').html(totals.subtotal.toFixed(2));
+        $('.discount-value').html(totals.discount.toFixed(2));
+        $('.tax-value').html(totals.tax.toFixed(2));
+        $('.total-value').html(totals.total.toFixed(2));
+    }
 	// init_secondary_actions() {
 	// 	this.page.set_secondary_action('Void Invoice', function() {
 	// 		console.log('void invoice');
