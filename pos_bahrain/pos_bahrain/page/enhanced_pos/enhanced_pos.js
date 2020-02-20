@@ -32,21 +32,21 @@ frappe.pages['enhanced-pos'].refresh = function(wrapper) {
  */
 pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	constructor(wrapper) {
+	    this.init_state();
 		this.wrapper = $(wrapper)
 			.find('.layout-main-section')
 			.append('<div id="app"></div>');
 		this.page = wrapper.page;
-
-        // Cart attributes
-        this.customer = null;
-        this.cart_items = [];
-        this.selected_cart_item = null;
-
 		frappe.require(['assets/css/enhanced_pos.min.css'], () => {
 			this.init();
 			this.init_sales_invoice_frm();
 			init_pos_actions(this);
 		});
+	}
+	init_state() {
+	    this.customer = null;
+	    this.cart_items = [];
+	    this.selected_cart_item = null;
 	}
 	init() {
 		this.wrapper
@@ -175,6 +175,9 @@ pos_bahrain.enhanced_pos.PointOfSale = class PointOfSale {
 	}
 	on(target, fn) {
 	    $(target).click(fn);
+	}
+	refresh() {
+	    this._render_items();
 	}
 	async prompt_payment() {
 	    const values = await payment_dialog(this.frm.doc.payments);

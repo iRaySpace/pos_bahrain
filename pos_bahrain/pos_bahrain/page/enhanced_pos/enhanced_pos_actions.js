@@ -5,6 +5,11 @@ function init_pos_actions(pos) {
         await _map_pos_to_frm(pos, payments);
         pos.frm.savesubmit();
     });
+    pos.on('.pos-new-cart', async function() {
+        pos.init_state();
+        pos.refresh();
+        await pos.init_sales_invoice_frm();
+    });
 }
 
 async function _map_pos_to_frm(pos, payments) {
